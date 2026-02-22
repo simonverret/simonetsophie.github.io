@@ -31,3 +31,45 @@ p {
     color: #666;
     font-size: 1.1em;
 }
+
+/* RSVP form styles */
+.rsvp-form {
+    margin-top: 24px;
+    display: grid;
+    gap: 10px;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rsvp-form label {
+    text-align: left;
+    font-weight: 600;
+    color: #444;
+}
+
+.rsvp-form input,
+.rsvp-form select {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.rsvp-submit {
+    background: linear-gradient(90deg,#667eea,#764ba2);
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.rsvp-submit:hover { opacity: 0.95; }
+
+.rsvp-message {
+    margin-top: 18px;
+    font-weight: 700;
+    color: #2a6f4a;
+}
