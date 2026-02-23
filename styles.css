@@ -9,6 +9,7 @@ body {
     background: #000;
     min-height: 100vh;
     display: flex;
+    font-size: 1.4em;
     justify-content: center;
     align-items: center;
     color: #eee;
@@ -31,8 +32,8 @@ h1 {
 }
 
 p {
+    /* font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; */
     color: #ddd;
-    font-size: 1.4em;
 }
 
 /* RSVP form styles */
@@ -48,7 +49,6 @@ p {
 .rsvp-form label {
     text-align: left;
     /* font-weight: 600; */
-    font-size: 1.4em;
     color: #eee;
 }
 
@@ -58,26 +58,30 @@ p {
     padding: 10px 10px;
     border: 1px solid #333;
     border-radius: 6px;
-    font-size: 1rem;
     background: rgba(255,255,255,0.03);
     color: #eee;
 }
 
 .rsvp-submit {
-    background: #fff;
+    margin-top: 18px;
+    background: #aaa;
+    font-family: inherit;
     color: #000;
     border: none;
     padding: 12px 16px;
     border-radius: 999px;
+    font-size: 1em;
     cursor: pointer;
-    font-weight: 700;
 }
 
-.rsvp-submit:hover { opacity: 0.95; }
+.rsvp-submit:hover { 
+    background: #fff;
+    /* opacity: 0.95; */
+}
 
 .rsvp-message {
     margin-top: 18px;
-    font-weight: 700;
+    /* font-weight: 700; */
     color: #ffffff;
 }
 
@@ -89,6 +93,7 @@ p {
     justify-content: left;
     align-items: left;
     margin-top: 6px;
+    margin-left: 18px;
 }
 
 .radio {
@@ -103,11 +108,12 @@ p {
 .radio input[type="radio"] {
     appearance: none;
     -webkit-appearance: none;
-    width: 14px;
-    height: 14px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    border: 2px solid #fff;
+    border: 1px solid #fff;
     display: inline-block;
+    align-self: center;
     position: relative;
     outline: none;
     margin: 0;
@@ -117,12 +123,13 @@ p {
     background: #fff;
 }
 
-.radio span {
-    /* font-weight: 600; */
-}
+/* .radio span {
+    font-weight: 600;
+} */
 
 /* ensure labels align left for form labels */
 .rsvp-form label:not(.radio) {
     text-align: left;
+    align-self: center;
     display: block;
 }
