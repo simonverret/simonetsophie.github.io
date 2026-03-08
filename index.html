@@ -16,6 +16,7 @@
         <a href="#rsvp">RSVP</a>
     </nav>
     
+    <div class="bg-image" aria-hidden="true"></div>
     <div class="bg-overlay" aria-hidden="true"></div>
     <section id="deroulement" class="section">
         <div class="container">
@@ -87,9 +88,10 @@
     </section>
     
     <script>
+        var bgImage = document.querySelector('.bg-image');
         window.addEventListener('scroll', function() {
             var offset = window.scrollY * 0.12;
-            document.body.style.backgroundPositionY = (-offset) + 'px';
+            bgImage.style.backgroundPositionY = (-offset) + 'px';
         }, { passive: true });
     </script>
 </body>
