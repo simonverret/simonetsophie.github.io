@@ -5,97 +5,149 @@
 }
 
 body {
-    font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-    /* font-family: 'EB Garamond', "Baskerville", "Palatino Linotype", Georgia, serif; */
+    font-family: 'Helvetica', Arial, sans-serif;
+    /* font-family: 'Fanwood Text', Helvetica, serif; */
+    /* font-family: 'Spectral', 'Crimson Text', Helvetica, serif; */
     background-color: #000;
     font-size: 1.4em;
     color: #eee;
-    padding-top: 52px; /* clear fixed nav */
 }
 
-.bg-image {
-    position: fixed;
-    inset: 0;
-    background-image: url('asset/IMG_0423.JPG');
+.hero {
+    height: calc(70vh - 110px);
+    background-image: url('asset/IMG_0568.jpg');
     background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    z-index: -1;
-}
-
-.site-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(6px);
+    background-position: top;
     display: flex;
-    justify-content: center;
-    gap: 40px;
-    padding: 14px 20px;
-}
-
-.site-nav a {
-    color: #aaa;
-    text-decoration: none;
-    font-size: 0.7em;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-}
-
-.site-nav a:hover {
-    color: #fff;
-}
-
-.bg-overlay {
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(rgba(0,0,0,0.7) 85%, rgba(0,0,0,1) 100%);
-    pointer-events: none;
-    z-index: 0;
-}
-
-.section {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
     align-items: center;
-    position: relative;
-    z-index: 1;
+    justify-content: center;
 }
 
-.container {
+.date-line {
+    height: calc(10vh);
     text-align: center;
-    background: rgba(0,0,0,0.6);
-    padding: 60px 40px;
-    width: 100%;
+    padding: 20px 20px 28px;
+    font-size: 2.0em;
+    font-family: Helvetica, serif;
+    font-size: 0.7em;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: #000;
+    color: #aaa;
+    font-size: 0.75em;
+    letter-spacing: 0.1em;
 }
 
 h1 {
     color: #fff;
-    font-family: 'EB Garamond', "Baskerville", "Palatino Linotype", Georgia, serif;
-    font-size: 4em;
+    font-family: 'Zapfino', Helvetica, serif;
+    /* letter-spacing: 0.15em; */
+    /* text-transform: uppercase; */
+    font-size: clamp(1rem, 8.5vw, 4em);
     font-weight: normal;
-    margin-bottom: 40px;
+    white-space: nowrap;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.8), 0 0 3px rgba(0,0,0,0.5);
 }
 
 h2 {
     color: #fff;
-    font-family: 'EB Garamond', "Baskerville", "Palatino Linotype", Georgia, serif;
-    font-size: 2.5em;
+    font-family: 'Zapfino', Helvetica, serif;
+    /* letter-spacing: 0.15em; */
+    /* text-transform: uppercase; */
+    font-size: 2.0em;
     font-weight: normal;
-    margin-bottom: 24px;
 }
 
-p {
-    /* font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; */
-    color: #ddd;
+.site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    background: #000;
+    border-top: .5px solid #fff;
 }
 
-/* RSVP form styles */
+.nav-links {
+    display: flex;
+    gap: 40px;
+    padding: 14px 20px;
+}
+
+.nav-links a {
+    color: #aaa;
+    text-decoration: none;
+    /* font-family: 'Spectral', 'Crimson Text', Helvetica, serif; */
+    font-family: Helvetica, serif;
+    font-size: 0.7em;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    /* font-variant: small-caps; */
+    transition: color 0.2s;
+}
+
+.nav-links a:hover {
+    color: #fff;
+}
+
+.nav-toggle {
+    display: none;
+}
+
+.gap {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.gap-sm { height: 30vh; }
+.gap-0337 { background-image: url('asset/IMG_0337.JPG'); }
+.gap-0212 { background-image: url('asset/IMG_0212.JPG'); }
+.gap-0547 { background-image: url('asset/IMG_0547.JPG'); }
+
+.panel {
+    background: #000;
+    width: 100%;
+    padding: 60px 40px;
+    text-align: center;
+}
+
+#rsvp {
+    min-height: 100vh;
+}
+
+@media (max-width: 640px) {
+    .site-nav {
+        justify-content: flex-end;
+    }
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: #000;
+        padding: 10px 20px 20px;
+        gap: 16px;
+        min-width: 180px;
+    }
+    .nav-links.open {
+        display: flex;
+    }
+    .nav-toggle {
+        display: block;
+        background: none;
+        border: none;
+        color: #aaa;
+        font-family: 'Spectral', 'Crimson Text', Helvetica, serif;
+        font-size: 0.7em;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        cursor: pointer;
+        padding: 14px 20px;
+    }
+}
+
 .rsvp-form {
     margin-top: 24px;
     display: grid;
@@ -105,16 +157,17 @@ p {
     margin-right: auto;
 }
 
-.rsvp-form label {
+.rsvp-form label:not(.radio) {
     text-align: left;
-    /* font-weight: 600; */
+    align-self: center;
+    display: block;
     color: #eee;
 }
 
 .rsvp-form input,
 .rsvp-form select,
 .rsvp-form textarea {
-    padding: 10px 10px;
+    padding: 10px;
     border: 1px solid #333;
     border-radius: 6px;
     background: rgba(255,255,255,0.03);
@@ -135,29 +188,23 @@ p {
 
 .rsvp-submit:hover {
     background: #fff;
-    /* opacity: 0.95; */
 }
 
 .rsvp-message {
     margin-top: 18px;
-    /* font-weight: 700; */
-    color: #ffffff;
+    color: #fff;
 }
 
-/* Radio-style round choices */
 .radio-group {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    justify-content: left;
-    align-items: left;
     margin-top: 6px;
     margin-left: 18px;
 }
 
 .radio {
     display: inline-flex;
-    align-items: left;
     gap: 8px;
     cursor: pointer;
     color: #eee;
@@ -171,24 +218,11 @@ p {
     height: 8px;
     border-radius: 50%;
     border: 1px solid #fff;
-    display: inline-block;
     align-self: center;
-    position: relative;
     outline: none;
     margin: 0;
 }
 
 .radio input[type="radio"]:checked {
     background: #fff;
-}
-
-/* .radio span {
-    font-weight: 600;
-} */
-
-/* ensure labels align left for form labels */
-.rsvp-form label:not(.radio) {
-    text-align: left;
-    align-self: center;
-    display: block;
 }

@@ -4,38 +4,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simon et Sophie</title>
-    <!-- <link href="https://fonts.googleapis.com" rel="stylesheet"> -->
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Spectral&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&family=Fanwood+Text&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zapfino&family=Helvetica&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+    <header class="hero">
+        <h1>Sophie &amp;Simon</h1>
+    </header>
+
+    <p class="date-line">15 août 2026 &nbsp;·&nbsp; Hôtel Estrimont, Orford</p>
+
     <nav class="site-nav">
-        <a href="#deroulement">Infos</a>
-        <a href="#hebergement">Hébergement</a>
-        <a href="#rsvp">RSVP</a>
+        <div class="nav-links" id="nav-links">
+            <a href="#deroulement">Déroulement</a>
+            <a href="#hebergement">Hébergement</a>
+            <a href="#enfants">Enfants</a>
+            <a href="#faq">FAQ</a>
+            <a href="#rsvp">RSVP</a>
+        </div>
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-label="Menu">
+            <span id="nav-current">Menu</span> &#9776;
+        </button>
     </nav>
-    
-    <div class="bg-image" aria-hidden="true"></div>
-    <div class="bg-overlay" aria-hidden="true"></div>
-    <section id="deroulement" class="section">
-        <div class="container">
-            <h2>Infos</h2>
+
+    <div class="gap gap-sm"></div>
+
+    <section id="deroulement">
+        <div class="panel">
+            <h2>Déroulement</h2>
             <p>À venir.</p>
         </div>
     </section>
 
+    <div class="gap gap-0337"></div>
 
-    <section id="hebergement" class="section">
-        <div class="container">
+    <section id="hebergement">
+        <div class="panel">
             <h2>Hébergement</h2>
             <p>À venir.</p>
         </div>
     </section>
 
-    <section id="rsvp" class="section">
-        <div class="container">
-            <h1>RSVP</h1>
+    <div class="gap gap-0212"></div>
+
+    <section id="enfants">
+        <div class="panel">
+            <h2>Enfants</h2>
+            <p>À venir.</p>
+        </div>
+    </section>
+
+    <div class="gap gap-0547"></div>
+
+    <section id="faq">
+        <div class="panel">
+            <h2>FAQ</h2>
+            <p>À venir.</p>
+        </div>
+    </section>
+
+    <div class="gap"></div>
+
+    <section id="rsvp">
+        <div class="panel">
+            <h2>RSVP</h2>
 
             <p>À bientôt!</p>
 
@@ -47,7 +82,6 @@
                 <label for="rsvp-email">Email</label>
                 <!-- Replace the name value with your Google Form's entry ID, e.g. entry.222222222 -->
                 <input id="rsvp-email" name="entry.1861931117" type="email" placeholder="you@example.com" required>
-
 
                 <label id="rsvp-attending-label">Participerez-vous ?</label>
                 <!-- Replaced select with radio choices for round option styling -->
@@ -70,11 +104,9 @@
                     var submitted = false;
 
                     form.addEventListener('submit', function(){
-                        // mark that we've submitted so iframe load knows to show success
                         submitted = true;
                     });
 
-                    // When iframe loads after submission, show a local thank-you message
                     iframe.addEventListener('load', function(){
                         if(submitted){
                             form.style.display = 'none';
@@ -86,13 +118,35 @@
             </script>
         </div>
     </section>
-    
+
     <script>
-        var bgImage = document.querySelector('.bg-image');
-        window.addEventListener('scroll', function() {
-            var offset = window.scrollY * 0.12;
-            bgImage.style.backgroundPositionY = (-offset) + 'px';
-        }, { passive: true });
+        // Hamburger toggle
+        document.getElementById('nav-toggle').addEventListener('click', function() {
+            var links = document.getElementById('nav-links');
+            var open = links.classList.toggle('open');
+            this.setAttribute('aria-expanded', open);
+        });
+
+        // Close dropdown when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(function(a) {
+            a.addEventListener('click', function() {
+                document.getElementById('nav-links').classList.remove('open');
+                document.getElementById('nav-toggle').setAttribute('aria-expanded', false);
+            });
+        });
+
+        // Update current section label
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    var link = document.querySelector('.nav-links a[href="#' + entry.target.id + '"]');
+                    if (link) document.getElementById('nav-current').textContent = link.textContent;
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('section[id]').forEach(function(s) { observer.observe(s); });
     </script>
+
 </body>
 </html>
