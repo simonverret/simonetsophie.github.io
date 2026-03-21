@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&family=Fanwood+Text&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Zapfino&family=Helvetica&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
 
@@ -30,43 +31,42 @@
         </button>
     </nav>
 
-    <div class="gap gap-sm"></div>
-
     <section id="deroulement">
         <div class="panel">
             <h2>Déroulement</h2>
-            <p>À venir.</p>
+            <div data-md="content/deroulement.md"></div>
         </div>
     </section>
 
-    <div class="gap gap-0337"></div>
+    <img class="gap-img" src="asset/IMG_0297.JPG" alt="">
 
     <section id="hebergement">
         <div class="panel">
             <h2>Hébergement</h2>
-            <p>À venir.</p>
+            <div data-md="content/hebergement.md"></div>
         </div>
     </section>
 
-    <div class="gap gap-0212"></div>
-
-    <section id="enfants">
-        <div class="panel">
-            <h2>Enfants</h2>
-            <p>À venir.</p>
-        </div>
-    </section>
-
-    <div class="gap gap-0547"></div>
+    <img class="gap-img" src="asset/IMG_0212.JPG" alt="">
 
     <section id="faq">
         <div class="panel">
             <h2>FAQ</h2>
-            <p>À venir.</p>
+            <div data-md="content/faq.md"></div>
         </div>
     </section>
 
-    <div class="gap"></div>
+    <!-- <img class="gap-img" src="asset/IMG_0698.JPG" alt=""> -->
+    <img class="gap-img" src="asset/IMG_0702.JPG" alt="">
+    
+    <section id="enfants">
+        <div class="panel">
+            <h2>Enfants</h2>
+            <div data-md="content/enfants.md"></div>
+        </div>
+    </section>
+    
+    <img class="gap-img" src="asset/IMG_0547.JPG" alt="">
 
     <section id="rsvp">
         <div class="panel">
@@ -118,6 +118,14 @@
             </script>
         </div>
     </section>
+
+<script>
+        document.querySelectorAll('[data-md]').forEach(function(el) {
+            fetch(el.getAttribute('data-md'))
+                .then(function(r) { return r.text(); })
+                .then(function(text) { el.innerHTML = marked.parse(text); });
+        });
+    </script>
 
     <script>
         // Hamburger toggle
