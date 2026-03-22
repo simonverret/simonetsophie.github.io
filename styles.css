@@ -58,7 +58,8 @@ h2 {
 h3 {
     color: #fff;
     font-family: Helvetica, serif;
-    font-size: 1.0em;
+    /* font-family: 'Zapfino', Helvetica, serif; */
+    font-size: 1em;
     font-weight: normal;
     display: inline;
 }
@@ -358,6 +359,8 @@ section {
 .remove-guest {
     background: none;
     border: 1px solid #444;
+    position: relative;
+    top: -2px;
     color: #666;
     width: 26px;
     height: 26px;
@@ -365,7 +368,7 @@ section {
     cursor: pointer;
     font-size: 1em;
     padding: 0;
-    margin-left: 8px;
+    margin-left: 15px;
     vertical-align: middle;
     display: inline-flex;
     align-items: center;
