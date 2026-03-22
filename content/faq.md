@@ -1,4 +1,4 @@
-#### Quel est le code vestimentaire?
-Nous suggérons une tenue "cocktail-chic", offrant la liberté de mouvement et le confort requis pour la portion extérieure et la soirée dansante. 
+Contactez-nous si vous avez des questions: info@sophiesimon2026.com. Nous mettrons cette section à jour régulièrement.
 
-Cette section sera mise à jour au besoin.
+#### Quel est le code vestimentaire?
+Nous suggérons une tenue "cocktail-chic", offrant liberté de mouvement et confort pour la portion extérieure et la soirée dansante. 

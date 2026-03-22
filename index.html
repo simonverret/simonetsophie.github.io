@@ -72,19 +72,16 @@
         <div class="panel">
             <h2>RSVP</h2>
 
-            <p>À bientôt!</p>
+            <p>À venir</p>
 
-            <form id="rsvp-form" method="POST" action="https://docs.google.com/forms/d/e/1FAIpQLSf_WkmeP-TBlhQJ6Re-8R7TQ3LyI-i86EN6FWBdyB1tvcxTFQ/formResponse" target="hidden_iframe" class="rsvp-form">
+            <!-- <form id="rsvp-form" method="POST" action="https://docs.google.com/forms/d/e/1FAIpQLSf_WkmeP-TBlhQJ6Re-8R7TQ3LyI-i86EN6FWBdyB1tvcxTFQ/formResponse" target="hidden_iframe" class="rsvp-form">
                 <label for="rsvp-name">Nom</label>
-                <!-- Replace the name value with your Google Form's entry ID, e.g. entry.111111111 -->
                 <input id="rsvp-name" name="entry.868932132" type="text" placeholder="Votre nom" required>
 
                 <label for="rsvp-email">Email</label>
-                <!-- Replace the name value with your Google Form's entry ID, e.g. entry.222222222 -->
                 <input id="rsvp-email" name="entry.1861931117" type="email" placeholder="you@example.com" required>
 
                 <label id="rsvp-attending-label">Participerez-vous ?</label>
-                <!-- Replaced select with radio choices for round option styling -->
                 <div class="radio-group" role="radiogroup" aria-labelledby="rsvp-attending-label">
                     <label class="radio"><input type="radio" name="entry.312840016" value="Oui" required><span>Oui</span></label>
                     <label class="radio"><input type="radio" name="entry.312840016" value="Non"><span>Non</span></label>
@@ -115,7 +112,7 @@
                         }
                     });
                 })();
-            </script>
+            </script> -->
         </div>
     </section>
 
@@ -154,7 +151,8 @@
         }, { threshold: 0.3 });
 
         document.querySelectorAll('section[id]').forEach(function(s) { observer.observe(s); });
-    </script>
+
+</script>
 
 </body>
 </html>

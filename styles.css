@@ -28,7 +28,7 @@ body {
     text-align: center;
     padding: 20px 20px 28px;
     font-family: Helvetica, serif;
-    font-size: 0.8em;
+    font-size: 0.7em;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     background: #000;
@@ -76,7 +76,7 @@ h2 {
     text-decoration: none;
     /* font-family: 'Spectral', 'Crimson Text', Helvetica, serif; */
     font-family: Helvetica, serif;
-    font-size: 0.8em;
+    font-size: 0.7em;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     /* font-variant: small-caps; */
@@ -123,6 +123,32 @@ section {
     color: #e8a87c;
 }
 
+[data-md] ul {
+    list-style: none;
+    padding-left: 1.2em;
+    margin-bottom: 1.5em;
+}
+
+[data-md] li {
+    margin-bottom: 0.4em;
+}
+
+[data-md] blockquote {
+    /* border-left: 2px solid #aaa; */
+    margin: 1em 0;
+    padding: 0.5em 1.2em;
+    /* color: #aaa; */
+    font-style: italic;
+}
+
+[data-md] iframe {
+    display: block;
+    width: 70%;
+    height: 300px;
+    border: none;
+    margin: 1em auto;
+}
+
 [data-md] {
     text-align: left;           /* left-align body text */
     max-width: 800px;           /* column width — increase for wider, decrease for narrower */
@@ -155,6 +181,7 @@ section {
 @media (max-width: 640px) {
     body {
         font-size: 1.2em;
+        padding-bottom: 50px;
     }
 
     section {
@@ -167,8 +194,9 @@ section {
         left: 0;
         right: 0;
         top: auto;
-        background: transparent;
-        border: none;
+        width: 100%;
+        background: #000;
+        border-top: .5px solid #fff;
         justify-content: center;
     }
 
@@ -176,14 +204,15 @@ section {
         display: none;
         flex-direction: column;
         align-items: center;
-        position: fixed;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        transform: none;
         background: #000;
-        padding: 20px 40px 80px 40px;
-        gap: 16px;
-        min-width: 200px;
+        border-top: .5px solid #fff;
+        padding: 28px 40px;
+        gap: 28px;
         z-index: 1;
     }
 
@@ -193,19 +222,14 @@ section {
 
     .nav-toggle {
         display: block;
+        width: 100%;
         background: #000;
-        border: 0px solid #333;
-        /* border-radius: 0; */
+        border: none;
         color: #aaa;
-        /* font-family: Helvetica, serif; */
         font-size: 1.8em;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
         cursor: pointer;
-        padding: 6px 10px 10px 18px;
-        /* display: flex; */
-        /* align-items: center; */
-        /* justify-content: center; */
+        padding: 10px;
+        text-align: center;
         position: relative;
         z-index: 2;
     }
@@ -216,10 +240,6 @@ section {
 
     .nav-links a {
         font-size: 1.1em;
-    }
-
-    .nav-links {
-        gap: 28px;
     }
 }
 
