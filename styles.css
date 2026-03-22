@@ -55,6 +55,14 @@ h2 {
     font-weight: normal;
 }
 
+h3 {
+    color: #fff;
+    font-family: Helvetica, serif;
+    font-size: 1.0em;
+    font-weight: normal;
+    display: inline;
+}
+
 .site-nav {
     position: sticky;
     top: 0;
@@ -243,81 +251,278 @@ section {
     }
 }
 
-.rsvp-form {
-    margin-top: 24px;
-    display: grid;
-    gap: 10px;
+/* ── RSVP layout ──────────────────────────────────────── */
+#rsvp-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
     max-width: 420px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.rsvp-form label:not(.radio) {
+    margin: 32px auto 0;
     text-align: left;
-    align-self: center;
-    display: block;
-    color: #eee;
 }
 
-.rsvp-form input,
-.rsvp-form select,
-.rsvp-form textarea {
-    padding: 10px;
+#rsvp-columns {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    width: 100%;
+}
+
+.guest-col {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+/* ── Field groups ─────────────────────────────────────── */
+.field-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+.field-group > label:not(.radio) {
+    width: 120px;
+    flex-shrink: 0;
+    color: #aaa;
+    font-size: 0.9em;
+    text-align: right;
+}
+
+.field-group input[type="text"],
+.field-group input[type="email"],
+.field-group input[type="number"] {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 12px;
     border: 1px solid #333;
     border-radius: 6px;
-    background: rgba(255,255,255,0.03);
+    background: rgba(255,255,255,0.04);
     color: #eee;
+    font-family: inherit;
+    font-size: 0.9em;
 }
 
+.field-group input:focus {
+    outline: none;
+    border-color: #666;
+}
+
+.field-group input::placeholder {
+    color: #666;
+}
+
+.field-group input.field-error {
+    border-color: #c44;
+}
+
+.radio-group.field-error .radio {
+    color: #c44;
+}
+
+.radio-group.field-error .radio input[type="radio"] {
+    border-color: #c44;
+}
+
+.field-group .radio-group {
+    margin-top: 0;
+}
+
+.radio-options-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.meal-desc-block {
+    color: #555;
+    font-size: 0.8em;
+    line-height: 1.6;
+}
+
+#main-extra {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* ── Extra guest column header ────────────────────────── */
+.guest-col-header {
+    text-align: center;
+}
+
+
+.remove-guest {
+    background: none;
+    border: 1px solid #444;
+    color: #666;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1em;
+    padding: 0;
+    margin-left: 8px;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 3px;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.remove-guest:hover,
+.remove-guest:active {
+    color: #fff;
+    border-color: #fff;
+}
+
+/* ── Bottom actions (add-guest buttons + submit) ──────── */
+#rsvp-actions {
+    max-width: 420px;
+    margin: 40px auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+#rsvp-add-btns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-add-guest {
+    background: none;
+    border: 1px solid #444;
+    color: #888;
+    padding: 8px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.78em;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.btn-add-guest:hover,
+.btn-add-guest:active {
+    color: #fff;
+    border-color: #fff;
+}
+
+.btn-add-guest:disabled {
+    color: #333;
+    border-color: #333;
+    cursor: default;
+}
+
+/* ── Meal notes (shown at bottom, after buttons) ─────── */
+.meal-note {
+    max-width: 420px;
+    margin: 40px auto 0;
+    text-align: left;
+    color: #666;
+    font-size: 0.82em;
+    line-height: 1.8;
+}
+
+.meal-note p + p {
+    margin-top: 12px;
+}
+
+#children-meal-note {
+    margin-top: 12px;
+}
+
+/* ── Submit ───────────────────────────────────────────── */
 .rsvp-submit {
-    margin-top: 18px;
     background: #aaa;
     font-family: inherit;
     color: #000;
     border: none;
-    padding: 12px 16px;
+    padding: 12px 28px;
     border-radius: 999px;
-    font-size: 1em;
+    font-size: 0.9em;
     cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: background 0.2s;
 }
 
-.rsvp-submit:hover {
+.rsvp-submit:hover,
+.rsvp-submit:active {
     background: #fff;
 }
 
 .rsvp-message {
-    margin-top: 18px;
+    margin-top: 32px;
     color: #fff;
+    font-size: 0.9em;
 }
 
+/* ── Radio buttons ────────────────────────────────────── */
 .radio-group {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 6px;
-    margin-left: 18px;
+    flex-direction: row;
+    gap: 20px;
+    margin-top: 0;
 }
 
 .radio {
     display: inline-flex;
     gap: 8px;
     cursor: pointer;
-    color: #eee;
+    color: #666;
     user-select: none;
+    align-items: center;
+    transition: color 0.2s;
+}
+
+.radio:hover,
+.radio:active,
+.radio:focus-within {
+    color: #fff;
 }
 
 .radio input[type="radio"] {
     appearance: none;
     -webkit-appearance: none;
-    width: 8px;
-    height: 8px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
-    border: 1px solid #fff;
-    align-self: center;
-    outline: none;
+    border: 1px solid #666;
+    outline: none; /* replaced by :focus-visible box-shadow below */
     margin: 0;
+    flex-shrink: 0;
+    transition: border-color 0.2s;
+}
+
+.radio:hover input[type="radio"],
+.radio:active input[type="radio"],
+.radio:focus-within input[type="radio"] {
+    border-color: #fff;
+}
+
+.radio input[type="radio"]:focus-visible {
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.2);
 }
 
 .radio input[type="radio"]:checked {
     background: #fff;
+    border-color: #fff;
 }
+
+.radio:has(input[type="radio"]:checked) {
+    color: #fff;
+}
+
+.radio:has(input[type="radio"]:checked) input[type="radio"] {
+    border-color: #fff;
+}
+

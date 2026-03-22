@@ -71,47 +71,327 @@
         <div class="panel">
             <h2>RSVP</h2>
 
-            <p>À venir</p>
+            <div id="rsvp-form-area">
+                <div id="rsvp-layout">
 
-            <!-- <form id="rsvp-form" method="POST" action="https://docs.google.com/forms/d/e/1FAIpQLSf_WkmeP-TBlhQJ6Re-8R7TQ3LyI-i86EN6FWBdyB1tvcxTFQ/formResponse" target="hidden_iframe" class="rsvp-form">
-                <label for="rsvp-name">Nom</label>
-                <input id="rsvp-name" name="entry.868932132" type="text" placeholder="Votre nom" required>
+                    <div id="rsvp-columns">
+                        <!-- ── Invité principal ── -->
+                        <div class="guest-col" id="main-guest-col">
 
-                <label for="rsvp-email">Email</label>
-                <input id="rsvp-email" name="entry.1861931117" type="email" placeholder="you@example.com" required>
+                            <div class="field-group">
+                                <label for="field-email">Courriel</label>
+                                <input id="field-email" type="email" placeholder="votre@email.com" autocomplete="email">
+                            </div>
 
-                <label id="rsvp-attending-label">Participerez-vous ?</label>
-                <div class="radio-group" role="radiogroup" aria-labelledby="rsvp-attending-label">
-                    <label class="radio"><input type="radio" name="entry.312840016" value="Oui" required><span>Oui</span></label>
-                    <label class="radio"><input type="radio" name="entry.312840016" value="Non"><span>Non</span></label>
+                            <div class="field-group">
+                                <label for="field-nom">Nom</label>
+                                <input id="field-nom" type="text" placeholder="nom complet">
+                            </div>
+
+                            <div class="field-group">
+                                <label>Présence</label>
+                                <div class="radio-group">
+                                    <label class="radio"><input type="radio" name="presence-main" value="Oui" tabindex="0"><span>Oui</span></label>
+                                    <label class="radio"><input type="radio" name="presence-main" value="Non" tabindex="0"><span>Non, désolé</span></label>
+                                </div>
+                            </div>
+
+                            <div id="main-extra" style="display:none">
+                                <div class="field-group">
+                                    <label for="field-restrictions">Restrictions</label>
+                                    <input id="field-restrictions" type="text" placeholder="allergie, intolérance">
+                                </div>
+                                <div class="field-group">
+                                    <label>Repas</label>
+                                    <div class="radio-group">
+                                        <label class="radio"><input type="radio" name="plat-main" value="Tajine" tabindex="0"><span>Tajine</span></label>
+                                        <label class="radio"><input type="radio" name="plat-main" value="Pâtes" tabindex="0"><span>Pâtes</span></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!-- /main-guest-col -->
+
+                        <!-- Extra guest columns injected here by JS -->
+                    </div><!-- /rsvp-columns -->
+
+                </div><!-- /rsvp-layout -->
+
+                <div id="adult-meal-note" class="meal-note" style="display:none">
+                    <p><strong>Tajine</strong> de quinoa, légumes, amandes grillées, herbes fraîches, coulis de poivron rouge grillé, vegan, sans gluten, légèrement épicé</p>
+                    <p><strong>Pâtes</strong> au pesto de basilic, légumes, tofu mariné à la toscane grillé, vegan/p>
+                </div>
+                <div id="children-meal-note" class="meal-note" style="display:none">
+                    <p><strong>Option A :</strong> description du plat</p>
+                    <p><strong>Option B :</strong> description du plat</p>
                 </div>
 
-                <button type="submit" class="rsvp-submit">Envoyer</button>
-            </form>
+                <div id="rsvp-actions" style="display:none">
+                    <div id="rsvp-add-btns">
+                        <button type="button" class="btn-add-guest" id="btn-add-adult" tabindex="0">+1 adulte</button>
+                        <button type="button" class="btn-add-guest" id="btn-add-child" tabindex="0">+1 enfant</button>
+                    </div>
+                    <button type="button" id="rsvp-submit" class="rsvp-submit" tabindex="0">Envoyer</button>
+                </div>
+            </div><!-- /rsvp-form-area -->
 
-            <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-            <div id="rsvp-message" class="rsvp-message" style="display:none;">Merci — votre réponse a été envoyée.</div>
+            <div id="rsvp-message" class="rsvp-message" style="display:none;">
+                Merci — votre réponse a été envoyée.
+            </div>
 
             <script>
-                (function(){
-                    var form = document.getElementById('rsvp-form');
-                    var iframe = document.getElementById('hidden_iframe');
-                    var msg = document.getElementById('rsvp-message');
-                    var submitted = false;
+            (function () {
+                /* ── Config ──────────────────────────────────────────── */
+                var FORM_URL = ''; /* TODO: coller l'URL d'action du Google Form ici */
 
-                    form.addEventListener('submit', function(){
-                        submitted = true;
-                    });
+                /* Noms des champs Google Form — à mettre à jour une fois le formulaire créé */
+                var E = {
+                    email:        'entry.EMAIL',
+                    nom:          'entry.NOM',
+                    presence:     'entry.PRESENCE',
+                    restrictions: 'entry.RESTRICTIONS',
+                    plat:         'entry.PLAT',
+                    age:          'entry.AGE'
+                };
 
-                    iframe.addEventListener('load', function(){
-                        if(submitted){
-                            form.style.display = 'none';
-                            msg.style.display = 'block';
-                            submitted = false;
+                /* ── État ────────────────────────────────────────────── */
+                var extraGuests = []; /* { id, type: 'adult'|'child' } */
+                var nextId = 0;
+                var adultCount = 0;
+                var childCount = 0;
+                var MAX_ADULTS   = 1;
+                var MAX_CHILDREN = 3;
+
+                /* ── Références DOM ──────────────────────────────────── */
+                var presenceRadios = document.querySelectorAll('input[name="presence-main"]');
+                var mainExtra      = document.getElementById('main-extra');
+                var actionsEl      = document.getElementById('rsvp-actions');
+                var addBtnsEl      = document.getElementById('rsvp-add-btns');
+                var submitBtn      = document.getElementById('rsvp-submit');
+                var columnsEl      = document.getElementById('rsvp-columns');
+                var adultMealNote  = document.getElementById('adult-meal-note');
+                var childrenNote   = document.getElementById('children-meal-note');
+                var formArea       = document.getElementById('rsvp-form-area');
+                var messageEl      = document.getElementById('rsvp-message');
+
+                /* ── Changement de présence ──────────────────────────── */
+                presenceRadios.forEach(function (r) {
+                    r.addEventListener('change', function () {
+                        var yes = (this.value === 'Oui');
+                        mainExtra.style.display     = yes ? '' : 'none';
+                        actionsEl.style.display     = '';
+                        addBtnsEl.style.display     = yes ? '' : 'none';
+                        adultMealNote.style.display = yes ? '' : 'none';
+                        if (!yes) {
+                            extraGuests.slice().forEach(function (g) { removeGuest(g.id); });
+                            adultCount = 0;
+                            childCount = 0;
+                            updateAddButtons();
                         }
                     });
-                })();
-            </script> -->
+                });
+
+                /* ── Boutons +1 ──────────────────────────────────────── */
+                document.getElementById('btn-add-adult').addEventListener('click', function () { addGuest('adult'); });
+                document.getElementById('btn-add-child').addEventListener('click', function () { addGuest('child'); });
+
+                /* ── Ajouter une colonne invité ──────────────────────── */
+                function addGuest(type) {
+                    var id = ++nextId;
+                    extraGuests.push({ id: id, type: type });
+                    var isChild = (type === 'child');
+                    var title = isChild ? ('Enfant ' + (++childCount)) : ('Adulte ' + (++adultCount + 1));
+
+                    var col = document.createElement('div');
+                    col.className = 'guest-col extra-guest-col';
+                    col.id = 'guest-col-' + id;
+
+                    var h = '';
+                    h += '<div class="guest-col-header">';
+                    h +=   '<h3>' + title + '</h3>';
+                    h +=   '<button type="button" class="remove-guest" aria-label="Supprimer">&times;</button>';
+                    h += '</div>';
+
+                    h += '<div class="field-group">';
+                    h +=   '<label>Nom</label>';
+                    h +=   '<input type="text" class="g-nom" placeholder="nom complet">';
+                    h += '</div>';
+
+                    if (isChild) {
+                        h += '<div class="field-group">';
+                        h +=   '<label>Âge</label>';
+                        h +=   '<input type="number" class="g-age" placeholder="âge au 15 août 2026" min="0" max="17">';
+                        h += '</div>';
+                    }
+
+                    h += '<div class="field-group">';
+                    h +=   '<label>Restrictions</label>';
+                    h +=   '<input type="text" class="g-restrictions" placeholder="allergie, intolérance">';
+                    h += '</div>';
+
+                    h += '<div class="field-group"><label>Repas</label><div class="radio-group">';
+                    if (!isChild) {
+                        h += '<label class="radio"><input type="radio" name="plat-' + id + '" value="Tajine" tabindex="0"><span>Tajine</span></label>';
+                        h += '<label class="radio"><input type="radio" name="plat-' + id + '" value="Pâtes" tabindex="0"><span>Pâtes</span></label>';
+                    } else {
+                        h += '<label class="radio"><input type="radio" name="plat-' + id + '" value="Menu enfant A" tabindex="0"><span>Option A</span></label>';
+                        h += '<label class="radio"><input type="radio" name="plat-' + id + '" value="Menu enfant B" tabindex="0"><span>Option B</span></label>';
+                    }
+                    h += '</div></div>';
+
+                    col.innerHTML = h;
+                    col.querySelector('.remove-guest').addEventListener('click', function () { removeGuest(id); });
+                    columnsEl.appendChild(col);
+                    col.querySelector('.g-nom').focus();
+                    refreshChildrenNote();
+                    updateAddButtons();
+                }
+
+                /* ── Supprimer une colonne invité ────────────────────── */
+                function removeGuest(id) {
+                    var guest = extraGuests.filter(function (g) { return g.id === id; })[0];
+                    extraGuests = extraGuests.filter(function (g) { return g.id !== id; });
+                    if (guest) {
+                        if (guest.type === 'child') childCount--; else adultCount--;
+                    }
+                    var el = document.getElementById('guest-col-' + id);
+                    if (el) el.remove();
+                    refreshChildrenNote();
+                    updateAddButtons();
+                }
+
+                /* ── Limites d'ajout ─────────────────────────────────── */
+                function updateAddButtons() {
+                    document.getElementById('btn-add-adult').disabled = adultCount >= MAX_ADULTS;
+                    document.getElementById('btn-add-child').disabled = childCount >= MAX_CHILDREN;
+                }
+
+                /* ── Note repas enfants ──────────────────────────────── */
+                function refreshChildrenNote() {
+                    var hasChild = extraGuests.some(function (g) { return g.type === 'child'; });
+                    childrenNote.style.display = hasChild ? '' : 'none';
+                }
+
+                /* ── Validation ──────────────────────────────────────── */
+                function checkInput(el) {
+                    if (!el.value.trim()) {
+                        el.classList.add('field-error');
+                        return false;
+                    }
+                    return true;
+                }
+
+                function checkRadio(name) {
+                    if (!document.querySelector('input[name="' + name + '"]:checked')) {
+                        var first = document.querySelector('input[name="' + name + '"]');
+                        if (first) first.closest('.radio-group').classList.add('field-error');
+                        return false;
+                    }
+                    return true;
+                }
+
+                /* Clear errors on interaction */
+                formArea.addEventListener('input', function (e) {
+                    e.target.classList.remove('field-error');
+                });
+                formArea.addEventListener('change', function (e) {
+                    if (e.target.type === 'radio') {
+                        var g = e.target.closest('.radio-group');
+                        if (g) g.classList.remove('field-error');
+                    }
+                });
+
+                /* ── Envoi ───────────────────────────────────────────── */
+                submitBtn.addEventListener('click', function () {
+                    /* Clear previous errors */
+                    formArea.querySelectorAll('.field-error').forEach(function (el) {
+                        el.classList.remove('field-error');
+                    });
+
+                    var ok = true;
+                    ok = checkInput(document.getElementById('field-email'))  && ok;
+                    ok = checkInput(document.getElementById('field-nom'))    && ok;
+                    ok = checkRadio('presence-main')                         && ok;
+
+                    var presEl   = document.querySelector('input[name="presence-main"]:checked');
+                    var presence = presEl ? presEl.value : null;
+
+                    if (presence === 'Oui') {
+                        ok = checkRadio('plat-main') && ok;
+                        extraGuests.forEach(function (g) {
+                            var col = document.getElementById('guest-col-' + g.id);
+                            ok = checkInput(col.querySelector('.g-nom')) && ok;
+                            if (g.type === 'child') ok = checkInput(col.querySelector('.g-age')) && ok;
+                            ok = checkRadio('plat-' + g.id) && ok;
+                        });
+                    }
+
+                    if (!ok) {
+                        var first = formArea.querySelector('.field-error');
+                        if (first) first.focus();
+                        return;
+                    }
+
+                    var subs = [];
+
+                    /* Invité principal */
+                    var main = { email: document.getElementById('field-email').value.trim(), nom: document.getElementById('field-nom').value.trim(), presence: presence };
+                    if (presence === 'Oui') {
+                        main.restrictions = document.getElementById('field-restrictions').value.trim();
+                        var p = document.querySelector('input[name="plat-main"]:checked');
+                        main.plat = p ? p.value : '';
+                    }
+                    subs.push(main);
+
+                    /* Invités supplémentaires */
+                    if (presence === 'Oui') {
+                        extraGuests.forEach(function (g) {
+                            var col   = document.getElementById('guest-col-' + g.id);
+                            var platEl = col.querySelector('input[type="radio"]:checked');
+                            var sub = {
+                                email:        email,
+                                nom:          col.querySelector('.g-nom').value.trim(),
+                                presence:     'Oui',
+                                restrictions: col.querySelector('.g-restrictions').value.trim(),
+                                plat:         platEl ? platEl.value : ''
+                            };
+                            if (g.type === 'child') {
+                                sub.age = col.querySelector('.g-age').value;
+                            }
+                            subs.push(sub);
+                        });
+                    }
+
+                    /* Mode dev : pas d'URL configurée */
+                    if (!FORM_URL) {
+                        console.log('RSVP submissions:', subs);
+                        formArea.style.display = 'none';
+                        messageEl.style.display = 'block';
+                        return;
+                    }
+
+                    /* Envoi réel */
+                    var promises = subs.map(function (s) {
+                        var fd = new FormData();
+                        fd.append(E.email,    s.email);
+                        fd.append(E.nom,      s.nom);
+                        fd.append(E.presence, s.presence);
+                        if (s.restrictions !== undefined) fd.append(E.restrictions, s.restrictions);
+                        if (s.plat         !== undefined) fd.append(E.plat,         s.plat);
+                        if (s.age          !== undefined) fd.append(E.age,          s.age);
+                        return fetch(FORM_URL, { method: 'POST', mode: 'no-cors', body: fd });
+                    });
+
+                    Promise.all(promises).then(function () {
+                        formArea.style.display  = 'none';
+                        messageEl.style.display = 'block';
+                    }).catch(function () {
+                        formArea.style.display  = 'none';
+                        messageEl.style.display = 'block';
+                    });
+                });
+            }());
+            </script>
         </div>
     </section>
 
