@@ -1,3 +1,5 @@
-Les enfants de tous les âges sont les bienvenus au mariage! Des espaces adaptés et des activités pour les divertir seront prévues. Si vos enfants viennent, merci de nous donner les informations requises à leur sujet dans le formulaire RSVP afin que nous puissions leur assurer le meilleur moment possible.
-Par contre, si vous êtes en mesure de les faire garder et que vous avez envie de passer une soirée sans enfants à gérer (on prévoit le party du siècle, quand même), faites-le sans gêne! Si vous êtes du coin, vous pouvez même demander a quelqu’un de venir les chercher après le cocktail ou le souper par exemple.
-Dans tous les cas, faites ce qui vous rend le plus a l’aise! Si vous êtes incertain, nous suggérons de confirmer la présence de vos enfants pour l’instant, et nous avertir au plus tard le 1er juillet s’ils ne viennent pas.
+Les enfants de tous les âges sont les bienvenus au mariage! Des espaces adaptés et quelques activités pour les divertir seront prévues.
+
+Toutefois, si vous êtes en mesure de faire garder vos enfants et que vous avez envie d'un petit congé de parentalité (on prévoit le party du siècle, quand même!), faites-le sans gêne! Vous pouvez même demander à quelqu’un de venir les chercher au moment qui vous convient.
+
+Faites ce qui vous rend le plus à l’aise! En cas de doute, nous suggérons de confirmer la présence de vos enfants pour l’instant, et nous avertir avant le 1er juillet s’ils ne viennent pas.
