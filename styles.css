@@ -295,7 +295,7 @@ section {
     flex-shrink: 0;
     color: #aaa;
     font-size: 0.9em;
-    text-align: right;
+    text-align: left;
 }
 
 .field-group input[type="text"],
@@ -335,6 +335,7 @@ section {
 
 .field-group .radio-group {
     margin-top: 0;
+    padding: 10px 0;
 }
 
 .radio-options-wrap {
@@ -448,6 +449,30 @@ section {
 
 #children-meal-note {
     margin-top: 12px;
+}
+
+/* ── Comments textarea ────────────────────────────────── */
+.rsvp-comments {
+    width: 100%;
+    max-width: 420px;
+    padding: 10px 12px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.04);
+    color: #eee;
+    font-family: inherit;
+    font-size: 0.9em;
+    resize: vertical;
+    min-height: 80px;
+}
+
+.rsvp-comments::placeholder {
+    color: #666;
+}
+
+.rsvp-comments:focus {
+    outline: none;
+    border-color: #666;
 }
 
 /* ── Submit ───────────────────────────────────────────── */

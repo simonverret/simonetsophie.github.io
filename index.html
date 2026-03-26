@@ -71,6 +71,8 @@
         <div class="panel">
             <h2>RSVP</h2>
 
+            <div id="rsvp-content">
+            <p>Merci de répondre avant le 1er juin.</p>
             <p class="rsvp-intro">Entrez votre réponse puis vous pourrez ajouter la réponse pour votre conjoint(e) et/ou enfants.</p>
 
             <div id="rsvp-form-area">
@@ -132,9 +134,11 @@
                         <button type="button" class="btn-add-guest" id="btn-add-adult" tabindex="0">+1 adulte</button>
                         <button type="button" class="btn-add-guest" id="btn-add-child" tabindex="0">+1 enfant</button>
                     </div>
+                    <textarea id="field-commentaires" class="rsvp-comments" placeholder="Commentaires, questions?"></textarea>
                     <button type="button" id="rsvp-submit" class="rsvp-submit" tabindex="0">Envoyer</button>
                 </div>
             </div><!-- /rsvp-form-area -->
+            </div><!-- /rsvp-content -->
 
             <div id="rsvp-message" class="rsvp-message" style="display:none;">
                 Merci — votre réponse a été envoyée.
@@ -151,7 +155,8 @@
                     presence:     'entry.1875724426',
                     age:          'entry.563216720',
                     restrictions: 'entry.2040104472',
-                    plat:         'entry.1903809122'
+                    plat:         'entry.1903809122',
+                    commentaire:  'entry.835474338' /* TODO: replace with real entry ID from Google Form */
                 };
 
                 /* ── État ────────────────────────────────────────────── */
@@ -171,7 +176,7 @@
                 var columnsEl      = document.getElementById('rsvp-columns');
                 var adultMealNote  = document.getElementById('adult-meal-note');
                 var childrenNote   = document.getElementById('children-meal-note');
-                var formArea       = document.getElementById('rsvp-form-area');
+                var formArea       = document.getElementById('rsvp-content');
                 var messageEl      = document.getElementById('rsvp-message');
 
                 /* ── Changement de présence ──────────────────────────── */
@@ -339,6 +344,7 @@
                         var p = document.querySelector('input[name="plat-main"]:checked');
                         main.plat = p ? p.value : '';
                     }
+                    main.commentaire = document.getElementById('field-commentaires').value.trim();
                     subs.push(main);
 
                     /* Invités supplémentaires */
@@ -376,6 +382,7 @@
                         if (s.restrictions !== undefined) fd.append(E.restrictions, s.restrictions);
                         if (s.plat         !== undefined) fd.append(E.plat,         s.plat);
                         if (s.age          !== undefined) fd.append(E.age,          s.age);
+                        if (s.commentaire  !== undefined) fd.append(E.commentaire,  s.commentaire);
                         return fetch(FORM_URL, { method: 'POST', mode: 'no-cors', body: fd });
                     });
 
