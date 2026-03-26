@@ -252,6 +252,12 @@ section {
     }
 }
 
+.rsvp-intro {
+    color: #666;
+    font-size: 0.8em;
+    margin-top: 16px;
+}
+
 /* ── RSVP layout ──────────────────────────────────────── */
 #rsvp-layout {
     display: flex;

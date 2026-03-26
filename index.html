@@ -71,6 +71,8 @@
         <div class="panel">
             <h2>RSVP</h2>
 
+            <p class="rsvp-intro">Entrez votre réponse puis vous pourrez ajouter la réponse pour votre conjoint(e) et/ou enfants.</p>
+
             <div id="rsvp-form-area">
                 <div id="rsvp-layout">
 
@@ -92,19 +94,19 @@
                                 <label>Présence</label>
                                 <div class="radio-group">
                                     <label class="radio"><input type="radio" name="presence-main" value="Oui" tabindex="0"><span>Oui</span></label>
-                                    <label class="radio"><input type="radio" name="presence-main" value="Non" tabindex="0"><span>Non, désolé</span></label>
+                                    <label class="radio"><input type="radio" name="presence-main" value="Non" tabindex="0"><span>Non</span></label>
                                 </div>
                             </div>
 
                             <div id="main-extra" style="display:none">
                                 <div class="field-group">
                                     <label for="field-restrictions">Restrictions</label>
-                                    <input id="field-restrictions" type="text" placeholder="allergie, intolérance">
+                                    <input id="field-restrictions" type="text" placeholder="ex. allergies, intolérances">
                                 </div>
                                 <div class="field-group">
-                                    <label>Repas</label>
+                                    <label>Plat principal</label>
                                     <div class="radio-group">
-                                        <label class="radio"><input type="radio" name="plat-main" value="Tajine" tabindex="0"><span>Tajine</span></label>
+                                        <label class="radio"><input type="radio" name="plat-main" value="Tajine" tabindex="0"><span>Quinoa</span></label>
                                         <label class="radio"><input type="radio" name="plat-main" value="Pâtes" tabindex="0"><span>Pâtes</span></label>
                                     </div>
                                 </div>
@@ -118,11 +120,11 @@
                 </div><!-- /rsvp-layout -->
 
                 <div id="adult-meal-note" class="meal-note" style="display:none">
-                    <p><strong>Tajine :</strong> Tajine de quinoa, légumes, amandes grillées, herbes fraîches, coulis de poivron rouge grillé, vegan, sans gluten, légèrement épicé</p>
-                    <p><strong>Pâtes :</strong> Pâtes au pesto de basilic, légumes, tofu mariné à la toscane grillé, vegan</p>
+                    <p><strong>Quinoa :</strong> Tajine de quinoa, légumes, amandes torréfiées, herbes fraîches, coulis de poivron rouge grillé (vegan, sans gluten, légèrement épicé)</p>
+                    <p><strong>Pâtes :</strong> Pennes au pesto de basilic, légumes, tofu à la toscane grillé (vegan)</p>
                 </div>
                 <div id="children-meal-note" class="meal-note" style="display:none">
-                    <p><strong>Menu enfant :</strong> à venir</p>
+                    <p><strong>Menu enfant :</strong> Sera confirmé prochainement.</p>
                 </div>
 
                 <div id="rsvp-actions" style="display:none">
@@ -218,13 +220,13 @@
                     if (isChild) {
                         h += '<div class="field-group">';
                         h +=   '<label>Âge</label>';
-                        h +=   '<input type="number" class="g-age" placeholder="âge au 15 août 2026" min="0" max="17">';
+                        h +=   '<input type="text" class="g-age" placeholder="âge au 15 août 2026">';
                         h += '</div>';
                     }
 
                     h += '<div class="field-group">';
                     h +=   '<label>Restrictions</label>';
-                    h +=   '<input type="text" class="g-restrictions" placeholder="allergie, intolérance">';
+                    h +=   '<input type="text" class="g-restrictions" placeholder="ex. allergies, intolérances">';
                     h += '</div>';
 
                     if (!isChild) {
